@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breedify - Authenticating...</title>
+</head>
+<body style="background-color: #0c0a09; color: #f2f0ef; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif;">
+    <div style="text-align: center;">
+        <div id="spinner" style="border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid #f97316; border-radius: 50%; width: 40px; height: 40px; margin: 0 auto 20px auto;"></div>
+        <h2 style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">Completing login...</h2>
+        <p style="color: #a1a1aa; font-size: 14px;">Please wait while we redirect you.</p>
+    </div>
+    
+    <script src="js/config.js"></script>
+    <script>
+        // Inject spinner animation style
+        const style = document.createElement("style");
+        style.textContent = "@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }";
+        document.head.appendChild(style);
+        document.getElementById("spinner").style.animation = "spin 1s linear infinite";
+
+        (async function handleCallback() {
+            const hash = window.location.hash;
+            if (!hash) {
+                console.error("No hash found in callback URL");
+                window.location.href = "login.html";
+                return;
+            }
+
+            const params = new URLSearchParams(hash.substring(1));
+            const accessToken = params.get("access_token");
+            
+            if (!accessToken) {
+                console.error("No access token found in URL hash");
+                window.location.href = "login.html";
+                return;
+            }
+
+            // Save token
+            localStorage.setItem("breedify_token", accessToken);
+
+            // Parse user info from JWT payload
+            let user = {};
+            try {
+                const payloadBase64 = accessToken.split('.')[1];
+                const decodedPayload = JSON.parse(atob(payloadBase64.replace(/-/g, '+').replace(/_/g, '/')));
+                user = {
+                    id: decodedPayload.sub,
+                    email: decodedPayload.email,
+                    name: decodedPayload.user_metadata?.full_name || decodedPayload.email
+                };
+            } catch (e) {
+                console.error("Failed to decode JWT payload:", e);
+                user = { email: "Google User" };
+            }
+
+            localStorage.setItem("breedify_user", JSON.stringify(user));
+            
+            // Redirect to home page
+            window.location.href = "index.html";
+        })();
+    </script>
+</body>
+</html>
