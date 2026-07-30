@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import {
   MapPin, Droplets, Weight, IndianRupee, Bug, Leaf, Lightbulb,
-  ArrowLeft, RotateCcw, Download, Share2, ChevronRight,
+  ArrowLeft, RotateCcw, ChevronRight,
 } from "lucide-react";
 
 import { useEffect, useRef } from "react";
@@ -144,12 +144,6 @@ const Result = () => {
             className="rounded-xl bg-primary text-primary-foreground hover:brightness-110 font-semibold gap-2"
           >
             <RotateCcw className="w-4 h-4" /> Identify Another
-          </Button>
-          <Button variant="outline" className="rounded-xl border-border text-heading gap-2">
-            <Download className="w-4 h-4" /> Save Report
-          </Button>
-          <Button variant="outline" className="rounded-xl border-border text-heading gap-2">
-            <Share2 className="w-4 h-4" /> Share
           </Button>
         </div>
 
