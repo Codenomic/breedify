@@ -57,7 +57,7 @@ const Footer = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border text-center text-sm text-body">
-          © 2025 Breedify. Made with ❤ in India.
+          Made by Vidhish & Ayush
         </div>
       </div>
     </footer>

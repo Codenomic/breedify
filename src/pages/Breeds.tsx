@@ -1,5 +1,4 @@
 import { useState, useMemo } from "react";
-import { Bookmark } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { breeds, Breed } from "@/data/breeds";
@@ -129,14 +128,6 @@ const Breeds = () => {
 
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/80 pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0) 40%, rgba(0,0,0,0.55) 70%, rgba(0,0,0,0.80) 100%)' }} />
-
-                {/* Bookmark button */}
-                <div
-                  className="absolute top-3.5 right-3.5 z-[2] w-9 h-9 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center transition-all duration-200 hover:bg-white/[0.38] hover:scale-110"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <Bookmark className="w-4 h-4 text-white" strokeWidth={1.8} />
-                </div>
 
                 {/* Bottom text overlay */}
                 <div className="absolute bottom-0 left-0 right-0 z-[2] px-4 pb-4 pt-5 sm:px-[18px] sm:pb-[18px] sm:pt-5">
