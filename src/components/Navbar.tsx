@@ -9,24 +9,12 @@ const navLinks = [
   { label: "History", path: "/history" },
 ];
 
-const languages = [
-  { code: "en", label: "EN", native: "English" },
-  { code: "hi", label: "हि", native: "हिन्दी" },
-  { code: "pa", label: "ਪੰ", native: "ਪੰਜਾਬੀ" },
-  { code: "gu", label: "ગુ", native: "ગુજરાતી" },
-  { code: "ta", label: "த", native: "தமிழ்" },
-];
-
 const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [langOpen, setLangOpen] = useState(false);
   const [avatarOpen, setAvatarOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState(() => {
-    return localStorage.getItem("breedify_lang") || "en";
-  });
 
   // Auth state from localStorage
   const [user, setUser] = useState<{ firstName: string; fullName: string; email: string; photo?: string } | null>(null);
@@ -90,12 +78,6 @@ const Navbar = () => {
     };
   }, []);
 
-  const selectLang = (code: string) => {
-    setCurrentLang(code);
-    localStorage.setItem("breedify_lang", code);
-    setLangOpen(false);
-  };
-
   const handleLogout = () => {
     localStorage.removeItem("breedify_user");
     setUser(null);
@@ -103,7 +85,6 @@ const Navbar = () => {
     navigate("/");
   };
 
-  const currentLangObj = languages.find((l) => l.code === currentLang) || languages[0];
   const isLoggedIn = !!user;
   const initials = user?.firstName?.charAt(0)?.toUpperCase() || "U";
 
@@ -217,31 +198,7 @@ const Navbar = () => {
           </div>
         )}
 
-        {/* Language selector */}
-        <div className="relative">
-          <button
-            onClick={() => setLangOpen(!langOpen)}
-            className="flex items-center gap-1 px-3.5 py-[9px] text-sm text-secondary-foreground border border-border rounded-md hover:border-primary hover:text-primary transition-all duration-200"
-          >
-            {currentLangObj.label}
-            <ChevronDown className="w-3.5 h-3.5" />
-          </button>
-          {langOpen && (
-            <div className="absolute right-0 top-full mt-2 bg-card border border-border rounded-lg py-1 min-w-[140px] shadow-xl z-50">
-              {languages.map((lang) => (
-                <button
-                  key={lang.code}
-                  onClick={() => selectLang(lang.code)}
-                  className={`w-full text-left px-4 py-2 text-sm hover:bg-hover transition-colors ${
-                    currentLang === lang.code ? "text-primary" : "text-body"
-                  }`}
-                >
-                  {lang.native}
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
+        {/* Right actions - desktop */}
       </div>
 
       {/* Mobile hamburger */}
