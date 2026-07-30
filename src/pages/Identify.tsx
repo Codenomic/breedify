@@ -184,7 +184,8 @@ const Identify = () => {
     let apiResult: { breedName: string; confidence: number } | null = null;
     let apiError: string | null = null;
 
-    const apiPromise = fetch("http://localhost:8000/api/identify", {
+    const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || "https://breedify-backend-z7kd.onrender.com";
+    const apiPromise = fetch(`${apiBaseUrl}/api/identify`, {
       method: "POST",
       body: formData,
     })
