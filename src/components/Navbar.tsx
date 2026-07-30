@@ -136,20 +136,9 @@ const Navbar = () => {
       {/* Right actions - desktop */}
       <div className="hidden md:flex items-center gap-3">
         {!isLoggedIn ? (
-          <>
-            <Link
-              to="/login"
-              className="px-[18px] py-[9px] text-sm text-secondary-foreground border border-border rounded-md hover:border-primary hover:text-primary transition-all duration-200"
-            >
-              Log In
-            </Link>
-            <Link
-              to="/login"
-              className="px-5 py-[9px] text-sm font-semibold bg-primary text-primary-foreground border-[1.5px] border-primary rounded-md hover:brightness-95 hover:-translate-y-0.5 hover:shadow-[0_0_16px_rgba(196,255,51,0.3)] transition-all duration-200"
-            >
-              Sign Up
-            </Link>
-          </>
+          <span className="font-outfit font-bold text-base text-primary tracking-wide px-2">
+            Breed Better.
+          </span>
         ) : (
           <div ref={avatarRef} className="relative">
             <button
@@ -277,20 +266,9 @@ const Navbar = () => {
             ))}
             <hr className="border-border" />
             {!isLoggedIn ? (
-              <>
-                <Link
-                  to="/login"
-                  className="text-center py-2.5 text-sm text-secondary-foreground border border-border rounded-md"
-                >
-                  Log In
-                </Link>
-                <Link
-                  to="/login"
-                  className="text-center py-2.5 text-sm font-semibold bg-primary text-primary-foreground rounded-md"
-                >
-                  Sign Up
-                </Link>
-              </>
+              <span className="font-outfit font-bold text-base text-primary tracking-wide py-1">
+                Breed Better.
+              </span>
             ) : (
               <>
                 <div className="flex items-center gap-3 py-2">
