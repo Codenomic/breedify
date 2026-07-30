@@ -30,14 +30,28 @@ def load_model():
     - If architecture mismatch → print which architecture worked
     - Print "✅ Model loaded successfully on {device}" when done
     """
-    if not os.path.exists(MODEL_PATH):
+    model_path = MODEL_PATH
+    if not os.path.exists(model_path):
+        for candidate in ["best_resnet.pth", "../best_resnet.pth", "models/best_resnet.pth", "/opt/render/project/src/best_resnet.pth", "/opt/render/project/src/models/best_resnet.pth"]:
+            if os.path.exists(candidate):
+                model_path = candidate
+                break
+
+    if not os.path.exists(model_path):
         raise FileNotFoundError(f"Model file not found at: {MODEL_PATH}")
         
-    if not os.path.exists(CLASSES_PATH):
+    classes_path = CLASSES_PATH
+    if not os.path.exists(classes_path):
+        for candidate in ["classes.json", "../classes.json", "models/classes.json", "/opt/render/project/src/classes.json", "/opt/render/project/src/models/classes.json"]:
+            if os.path.exists(candidate):
+                classes_path = candidate
+                break
+
+    if not os.path.exists(classes_path):
         raise FileNotFoundError(f"Classes file not found at: {CLASSES_PATH}")
         
     try:
-        with open(CLASSES_PATH, "r", encoding="utf-8") as f:
+        with open(classes_path, "r", encoding="utf-8") as f:
             class_names = json.load(f)
         num_classes = len(class_names)
     except Exception as e:
@@ -63,7 +77,7 @@ def load_model():
             curr_model.fc = nn.Linear(in_features, num_classes)
             
             # Load state dict
-            state_dict = torch.load(MODEL_PATH, map_location=device)
+            state_dict = torch.load(model_path, map_location=device)
             curr_model.load_state_dict(state_dict)
             
             model = curr_model
